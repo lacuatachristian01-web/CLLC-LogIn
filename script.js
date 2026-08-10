@@ -8,17 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     
-    const tabSignIn = document.getElementById('tabSignIn');
-    const tabSignUp = document.getElementById('tabSignUp');
-    const tabIndicator = document.getElementById('tabIndicator');
-    
     const signInForm = document.getElementById('signInForm');
     const signUpForm = document.getElementById('signUpForm');
     const paneHeader = document.getElementById('paneHeader');
     const paneHeading = paneHeader.querySelector('h2');
     const paneSubtext = paneHeader.querySelector('p');
     const showcasePanel = document.querySelector('.showcase-panel');
-    const tabHeader = document.querySelector('.tab-header');
     const formFooter = document.querySelector('.form-footer');
     
     const authCard = document.getElementById('authCard');
@@ -51,32 +46,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Tab Switcher Logic
-    tabSignIn.addEventListener('click', () => switchTab('signin'));
-    tabSignUp.addEventListener('click', () => switchTab('signup'));
-
-    // "Don't Have an Account? Sign Up here!" link
+    // Page Switcher Logic ("Sign Up here!" / "Sign In here!" links)
+    // Clicking these swaps the entire panel to a distinct Sign In / Sign Up page.
     const goToSignUp = document.getElementById('goToSignUp');
     if (goToSignUp) {
         goToSignUp.addEventListener('click', (e) => {
             e.preventDefault();
-            switchTab('signup');
+            switchPage('signup');
         });
     }
 
-    function switchTab(tab) {
-        if (tab === 'signin') {
-            tabSignIn.classList.add('active');
-            tabSignUp.classList.remove('active');
-            tabIndicator.style.transform = 'translateX(0%)';
+    const goToSignIn = document.getElementById('goToSignIn');
+    if (goToSignIn) {
+        goToSignIn.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchPage('signin');
+        });
+    }
+
+    function switchPage(page) {
+        if (page === 'signin') {
+            authCard.classList.remove('view-signup');
+            authCard.classList.add('view-signin');
             signInForm.classList.add('active');
             signUpForm.classList.remove('active');
             paneHeading.textContent = 'Welcome back';
             paneSubtext.textContent = 'Enter your details to access your account';
         } else {
-            tabSignUp.classList.add('active');
-            tabSignIn.classList.remove('active');
-            tabIndicator.style.transform = 'translateX(100%)';
+            authCard.classList.remove('view-signin');
+            authCard.classList.add('view-signup');
             signUpForm.classList.add('active');
             signInForm.classList.remove('active');
             paneHeading.textContent = 'Create an Account';
@@ -277,7 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
         authCard.classList.add('logged-in');
         cardGlowWrapper.classList.add('logged-in');
         showcasePanel.classList.remove('hidden');
-        tabHeader.classList.add('hidden');
         formFooter.classList.add('hidden');
         dashboardPreview.classList.remove('hidden');
         welcomeUserMsg.textContent = `Logged in as: ${userIdentifier}`;
@@ -287,10 +284,9 @@ document.addEventListener('DOMContentLoaded', () => {
         authCard.classList.remove('logged-in');
         cardGlowWrapper.classList.remove('logged-in');
         showcasePanel.classList.add('hidden');
-        tabHeader.classList.remove('hidden');
         formFooter.classList.remove('hidden');
         dashboardPreview.classList.add('hidden');
-        switchTab('signin');
+        switchPage('signin');
         showToast('Logged out successfully', 'info');
     });
 
@@ -772,6 +768,3 @@ document.addEventListener('DOMContentLoaded', () => {
         renderParticles();
     }
 });
-
-
-
