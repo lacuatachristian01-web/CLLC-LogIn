@@ -90,7 +90,7 @@
                             <i class="fa-regular fa-user input-icon"></i>
                             <input type="text" id="signin-email" placeholder="Username" required autocomplete="username">
                         </div>
-                        <span class="error-msg" id="signin-email-error">Enter your username</span>
+                        <span class="error-msg" id="signin-email-error">Please Fill the Username</span>
                     </div>
 
                     <div class="input-group">
@@ -105,7 +105,7 @@
                                 <i class="fa-regular fa-eye eye-icon"></i>
                             </button>
                         </div>
-                        <span class="error-msg" id="signin-password-error">Enter your password</span>
+                        <span class="error-msg" id="signin-password-error">Please Fill the Password</span>
                     </div>
 
                     <div class="form-options">
@@ -116,11 +116,17 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="submit-btn" id="signInSubmit">
-                        <span class="btn-text">Sign In</span>
-                        <i class="fa-solid fa-arrow-right btn-icon"></i>
-                        <div class="spinner"></div>
-                    </button>
+                    <div class="form-btn-row">
+                        <button type="submit" class="submit-btn" id="signInSubmit">
+                            <span class="btn-text">Sign In</span>
+                            <i class="fa-solid fa-arrow-right btn-icon"></i>
+                            <div class="spinner"></div>
+                        </button>
+                        <button type="reset" class="submit-btn secondary-btn" id="signInReset" title="Clear the form and start again">
+                            <span class="btn-text">Reset</span>
+                            <i class="fa-solid fa-rotate-left btn-icon"></i>
+                        </button>
+                    </div>
 
                     <div class="divider">
                         <span>or continue with</span>
@@ -157,7 +163,7 @@
                             <i class="fa-regular fa-user input-icon"></i>
                             <input type="text" id="signup-name" placeholder="John Doe" required>
                         </div>
-                        <span class="error-msg" id="signup-name-error">Please enter your name</span>
+                        <span class="error-msg" id="signup-name-error">Please Fill the Full Name</span>
                     </div>
 
                     <div class="input-group">
@@ -166,7 +172,7 @@
                             <i class="fa-regular fa-envelope input-icon"></i>
                             <input type="email" id="signup-email" placeholder="john@company.com" required>
                         </div>
-                        <span class="error-msg" id="signup-email-error">Please enter a valid email</span>
+                        <span class="error-msg" id="signup-email-error">Please Fill the Work Email</span>
                     </div>
 
                     <div class="input-group">
@@ -193,11 +199,17 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="submit-btn" id="signUpSubmit">
-                        <span class="btn-text">Create Account</span>
-                        <i class="fa-solid fa-arrow-right btn-icon"></i>
-                        <div class="spinner"></div>
-                    </button>
+                    <div class="form-btn-row">
+                        <button type="submit" class="submit-btn" id="signUpSubmit">
+                            <span class="btn-text">Create Account</span>
+                            <i class="fa-solid fa-arrow-right btn-icon"></i>
+                            <div class="spinner"></div>
+                        </button>
+                        <button type="reset" class="submit-btn secondary-btn" id="signUpReset" title="Clear the form and start again">
+                            <span class="btn-text">Reset</span>
+                            <i class="fa-solid fa-rotate-left btn-icon"></i>
+                        </button>
+                    </div>
 
                     <p class="switch-form-link">Already have an account? <a href="#" id="goToSignIn">Sign In here!</a></p>
                 </form>

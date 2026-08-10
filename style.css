@@ -968,6 +968,22 @@ label {
     background: rgba(255, 255, 255, 0.1);
 }
 
+/* Submit + Reset button row (Rule 1: Consistency / Rule 4: Easy Reversal) */
+.form-btn-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-btn-row .submit-btn {
+    width: auto;
+    flex: 1;
+}
+
+.form-btn-row .submit-btn#signInSubmit,
+.form-btn-row .submit-btn#signUpSubmit {
+    flex: 2;
+}
+
 /* Modal Overlay */
 .modal-overlay {
     position: fixed;

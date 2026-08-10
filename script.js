@@ -152,7 +152,19 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInputError(passwordInput);
         hideSignInAlert();
 
-        if (emailInput.value.trim() === '' || passwordInput.value.trim() === '' || emailInput.value.trim().toLowerCase() !== demoUsername.toLowerCase() || passwordInput.value.trim() !== demoPassword) {
+        // Rule 3 - Prevent Errors: required fields are checked before anything is processed
+        if (emailInput.value.trim() === '') {
+            setInputError(emailInput, 'Please Fill the Username');
+            isValid = false;
+        }
+
+        if (passwordInput.value.trim() === '') {
+            setInputError(passwordInput, 'Please Fill the Password');
+            isValid = false;
+        }
+
+        // Only check credentials once both fields are actually filled in
+        if (isValid && (emailInput.value.trim().toLowerCase() !== demoUsername.toLowerCase() || passwordInput.value.trim() !== demoPassword)) {
             showSignInAlert('Username and Password is Incorrect! Please Try Again');
             isValid = false;
         }
@@ -169,6 +181,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Reset / Clear button - Rule 4: Permit Easy Reversal of Actions
+    signInForm.addEventListener('reset', () => {
+        // Runs after the browser clears the native input values
+        setTimeout(() => {
+            clearInputError(document.getElementById('signin-email'));
+            clearInputError(document.getElementById('signin-password'));
+            hideSignInAlert();
+            showToast('Form cleared. Start again.', 'info');
+        }, 0);
+    });
+
     signUpForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const nameInput = document.getElementById('signup-name');
@@ -181,17 +204,24 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInputError(emailInput);
         clearInputError(passwordInput);
 
+        // Rule 3 - Prevent Errors: check every required field before processing
         if (nameInput.value.trim() === '') {
-            setInputError(nameInput, 'Full name is required');
+            setInputError(nameInput, 'Please Fill the Full Name');
             isValid = false;
         }
 
-        if (!validateEmail(emailInput.value)) {
+        if (emailInput.value.trim() === '') {
+            setInputError(emailInput, 'Please Fill the Work Email');
+            isValid = false;
+        } else if (!validateEmail(emailInput.value)) {
             setInputError(emailInput, 'Please enter a valid work email');
             isValid = false;
         }
 
-        if (passwordInput.value.length < 8) {
+        if (passwordInput.value.trim() === '') {
+            setInputError(passwordInput, 'Please Fill the Password');
+            isValid = false;
+        } else if (passwordInput.value.length < 8) {
             setInputError(passwordInput, 'Password must be at least 8 characters');
             isValid = false;
         }
@@ -211,6 +241,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 showDashboard(nameInput.value);
             }, 1500);
         }
+    });
+
+    // Reset / Clear button - Rule 4: Permit Easy Reversal of Actions
+    signUpForm.addEventListener('reset', () => {
+        setTimeout(() => {
+            clearInputError(document.getElementById('signup-name'));
+            clearInputError(document.getElementById('signup-email'));
+            clearInputError(document.getElementById('signup-password'));
+            if (strengthBar) { strengthBar.style.width = '0%'; }
+            if (strengthText) { strengthText.textContent = 'Strength: Weak'; }
+            showToast('Form cleared. Start again.', 'info');
+        }, 0);
     });
 
     // Helper functions for validation
