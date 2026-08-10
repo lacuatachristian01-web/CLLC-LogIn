@@ -324,15 +324,12 @@ body {
 }
 
 .logo-icon {
-    font-size: 28px;
-    color: var(--primary-accent);
-    background: linear-gradient(135deg, #6366f1, #06b6d4, #ec4899);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: inline-block;
     filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
     transition: transform 0.15s ease-out, filter 0.3s ease;
-    display: inline-block;
     will-change: transform;
 }
 
@@ -610,7 +607,8 @@ body {
 }
 
 .form-brand-logo .logo-icon {
-    font-size: 26px;
+    width: 26px;
+    height: 26px;
 }
 
 .form-brand-logo .brand-name {
