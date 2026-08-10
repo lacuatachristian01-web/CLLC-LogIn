@@ -104,15 +104,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const strengthBar = document.getElementById('strengthBar');
     const strengthText = document.getElementById('strengthText');
 
+    // Live password requirement checklist
+    const reqLength = document.getElementById('req-length');
+    const reqCase = document.getElementById('req-case');
+    const reqNumber = document.getElementById('req-number');
+    const reqSpecial = document.getElementById('req-special');
+
+    function setRequirementState(el, passed) {
+        if (!el) return;
+        el.classList.toggle('valid', passed);
+        const icon = el.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('fa-solid', passed);
+            icon.classList.toggle('fa-regular', !passed);
+        }
+    }
+
     if (signupPasswordInput) {
         signupPasswordInput.addEventListener('input', (e) => {
             const val = e.target.value;
             let score = 0;
 
-            if (val.length >= 8) score++;
-            if (/[A-Z]/.test(val)) score++;
-            if (/[0-9]/.test(val)) score++;
-            if (/[^A-Za-z0-9]/.test(val)) score++;
+            const hasLength = val.length >= 8;
+            const hasUpperLower = /[A-Z]/.test(val) && /[a-z]/.test(val);
+            const hasNumber = /[0-9]/.test(val);
+            const hasSpecial = /[^A-Za-z0-9]/.test(val);
+
+            if (hasLength) score++;
+            if (hasUpperLower) score++;
+            if (hasNumber) score++;
+            if (hasSpecial) score++;
+
+            setRequirementState(reqLength, hasLength);
+            setRequirementState(reqCase, hasUpperLower);
+            setRequirementState(reqNumber, hasNumber);
+            setRequirementState(reqSpecial, hasSpecial);
 
             switch (score) {
                 case 0:
@@ -251,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInputError(document.getElementById('signup-password'));
             if (strengthBar) { strengthBar.style.width = '0%'; }
             if (strengthText) { strengthText.textContent = 'Strength: Weak'; }
+            [reqLength, reqCase, reqNumber, reqSpecial].forEach((el) => setRequirementState(el, false));
             showToast('Form cleared. Start again.', 'info');
         }, 0);
     });
